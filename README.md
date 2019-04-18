@@ -5,5 +5,6 @@ A simple blog using react on the frontend and express on the backend. Right now 
 Clone repo and in both the frontend and backend directories run:
 
 ```
+yarn
 yarn start
 ```
