@@ -1,23 +1,15 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import { Route, Switch } from "react-router-dom";
-import Home from './components/home';
-import Posts from './components/posts';
+import Home from './components/Home';
+import Posts from './components/Posts';
 
-class App extends Component {
-  render() {
-    let routes = (
-      <Switch>
-        <Route path="/posts" component={Posts} />
-        <Route path="/" component={Home}/>
-      </Switch>
-    )
-
-    return (
-      <Fragment>
-        {routes}
-      </Fragment>
-    );
-  }
+const App = props => {
+  return (
+    <Switch>
+      <Route path="/posts" component={Posts} />
+      <Route path="/" component={Home}/>
+    </Switch>
+  );
 }
 
 export default App;

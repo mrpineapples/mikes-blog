@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import styled from "styled-components";
-import Blog from './blog';
+import Blog from './Blog';
 import { NavLink } from "react-router-dom";
 
 const Title = styled.div`
@@ -31,32 +31,30 @@ const Title = styled.div`
   }
 `
 
-class Home extends Component {
-  state = {
-    title: null,
-    author: null,
-    body: null
+const Home = props => {
+  const [title, setTitle] = useState(null);
+  const [author, setAuthor] = useState(null);
+  const [body, setBody] = useState(null);
+
+  const titleChangeHandler = e => {
+    setTitle(e.target.value)
   }
 
-  titleChangeHandler = e => {
-    this.setState({title: e.target.value})
+  const authorChangeHandler = e => {
+    setAuthor(e.target.value)
   }
 
-  authorChangeHandler = e => {
-    this.setState({author: e.target.value})
+  const bodyChangeHandler = e => {
+    setBody(e.target.value)
   }
 
-  bodyChangeHandler = e => {
-    this.setState({body: e.target.value})
-  }
-
-  postSubmitHandler = () => {
-    if (this.state.title && this.state.author && this.state.body) {
+  const postSubmitHandler = () => {
+    if (title && author && body) {
       // Post to server
       const data = {
-        title: this.state.title,
-        author: this.state.author,
-        body: this.state.body
+        title: title,
+        author: author,
+        body: body
       }
 
       fetch("/posts", {
@@ -68,30 +66,28 @@ class Home extends Component {
       }).then(res => res.json())
         .then(response => console.log(response))
       
-      alert("Your posts was successful, Click Posts on the navbar to see your post")
+      alert("Your post was successful, click on Posts in the navbar to see your post!")
     } else {
-      alert("please fill out all fields")
+      alert("You forgot to fill out some fields 🙃")
     }
   }
 
-  render() {
-    return (
-      <div className="App">
-        <Title>
-          <a className="twitter" href="https://twitter.com/MichaelMiranduh" target="_blank">
-            <img src="http://pngimg.com/uploads/twitter/twitter_PNG15.png" />
-          </a>
-          <a className="title">Mike's Blog</a>
-          <NavLink to="/posts" className="posts">Posts</NavLink>
-        </Title>
-        <Blog
-          titleChange={this.titleChangeHandler}
-          authorChange={this.authorChangeHandler}
-          bodyChange={this.bodyChangeHandler}
-          submit={this.postSubmitHandler} />
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      <Title>
+        <a className="twitter" href="https://twitter.com/MichaelMiranduh" target="_blank" rel="noopener noreferrer">
+          <img src="http://pngimg.com/uploads/twitter/twitter_PNG15.png" alt="Twitter Bird" />
+        </a>
+        <span className="title">Mike's Blog</span>
+        <NavLink to="/posts" className="posts">Posts</NavLink>
+      </Title>
+      <Blog
+        titleChange={titleChangeHandler}
+        authorChange={authorChangeHandler}
+        bodyChange={bodyChangeHandler}
+        submit={postSubmitHandler} />
+    </div>
+  );
 }
 
 export default Home;
