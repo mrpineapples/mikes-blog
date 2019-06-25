@@ -40,8 +40,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(4000, () => {
-  console.log("Express running on port 4000")
+app.listen(8000, () => {
+  console.log("Express running on port 8000")
 })
 
 module.exports = app;
